@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="com.mendix.widget.web.radiocontainer.RadioContainer" pluginWidget="true" needsEntityContext="true" offlineCapable="true"
+        supportedPlatform="Web"
+        xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>Radio Container</name>
+    <description>My widget description</description>
+    <icon/>
+    <properties>
+        <propertyGroup caption="General">
+            <property key="options" type="object" isList="true" required="false">
+                <caption>Option</caption>
+                <description/>
+                <properties>
+                    <propertyGroup caption="General">
+                        <property key="value" type="string" defaultValue="" multiline="false" required="false">
+                            <caption>Value</caption>
+                            <description/>
+                        </property>
+                        <property key="content" type="widgets">
+                            <caption>Content</caption>
+                            <description/>
+                        </property>
+                    </propertyGroup>
+                </properties>
+            </property>
+            <property key="attribute" type="attribute" >
+                <caption>Attribute</caption>
+                <description/>
+                <attributeTypes>
+                    <attributeType name="String" />
+                    <attributeType name="Enum" />
+                </attributeTypes>
+            </property>
+            <systemProperty key="Label" />
+        </propertyGroup>
+        <propertyGroup caption="Events">
+            <property key="onChangeAction" type="action" required="false">
+                <caption>On change</caption>
+                <description/>
+            </property>
+        </propertyGroup>
+    </properties>
+</widget>
