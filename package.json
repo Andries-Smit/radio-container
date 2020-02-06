@@ -1,7 +1,7 @@
 {
   "name": "radio-container",
   "widgetName": "RadioContainer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Radio input widget",
   "copyright": "Mendix 2020",
   "author": "Widget Team",
@@ -31,7 +31,6 @@
     "@types/react-test-renderer": "^16.8.1"
   },
   "dependencies": {
-    "@palmerhq/radio-group": "^0.2.0",
     "big.js": "^5.2.2"
   }
 }

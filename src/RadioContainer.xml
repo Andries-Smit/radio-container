@@ -13,14 +13,22 @@
                 <description/>
                 <properties>
                     <propertyGroup caption="General">
-                        <property key="value" type="string" defaultValue="" multiline="false" required="false">
-                            <caption>Value</caption>
-                            <description/>
-                        </property>
-                        <property key="content" type="widgets">
-                            <caption>Content</caption>
-                            <description/>
-                        </property>
+                        <propertyGroup caption="Data">
+                            <property key="value" type="string">
+                                <caption>Value</caption>
+                                <description/>
+                            </property>
+                            <property key="content" type="widgets">
+                                <caption>Content</caption>
+                                <description/>
+                            </property>
+                        </propertyGroup>
+                        <propertyGroup caption="Accesibility">
+                            <property key="ariaLabel" type="textTemplate" required="false">
+                                <caption>Label</caption>
+                                <description/>
+                            </property>
+                        </propertyGroup>
                     </propertyGroup>
                 </properties>
             </property>

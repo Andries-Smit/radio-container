@@ -5,23 +5,32 @@
  */
 import { CSSProperties } from "react";
 import { ActionPreview } from "@mendix/pluggable-widgets-typing-generator/dist/typings";
-import { ActionValue, EditableValue } from "mendix";
+import { ActionValue, DynamicValue, EditableValue } from "mendix";
 
 interface CommonProps {
     name: string;
+    id: string;
     class: string;
     style?: CSSProperties;
     tabIndex: number;
 }
 
 export interface OptionsType {
-    value?: string;
+    value: string;
     content: ReactNode;
+    ariaLabel?: DynamicValue<string>;
+}
+
+export interface OptionsPreviewType {
+    value: string;
+    content: ReactNode;
+    ariaLabel?: string;
 }
 
 export interface OptionsVisibilityType {
     value: boolean;
     content: boolean;
+    ariaLabel: boolean;
 }
 
 export interface RadioContainerContainerProps extends CommonProps {
@@ -34,7 +43,7 @@ export interface RadioContainerPreviewProps {
     class: string;
     style: string;
     styleObject: CSSProperties;
-    options: OptionsType[];
+    options: OptionsPreviewType[];
     attribute: string;
     onChangeAction?: ActionPreview;
 }

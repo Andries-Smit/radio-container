@@ -1,12 +1,12 @@
-import { Component, ReactNode, createElement } from "react";
+import { Component, Fragment, ReactNode, createElement } from "react";
 import { hot } from "react-hot-loader/root";
 import { ValueStatus } from "mendix";
 
-//@ts-ignore
-import { RadioGroup, Radio } from "@palmerhq/radio-group";
+import { Alert } from "./components/Alert";
+import { RadioGroup, Radio } from "./components/RadioGroup";
 import { RadioContainerContainerProps } from "../typings/RadioContainerProps";
 
-import "@palmerhq/radio-group/styles.css";
+import "./ui/RadioGroup.css";
 
 class RadioContainer extends Component<RadioContainerContainerProps> {
     onChange = this.onChangeHandler.bind(this);
@@ -22,16 +22,21 @@ class RadioContainer extends Component<RadioContainerContainerProps> {
     }
 
     render(): ReactNode {
-        const {attribute, options} = this.props;
+        const { attribute, options, id } = this.props;
         return (
-            <RadioGroup value={attribute.value} onChange={this.onChange}>
-                {options.map(option => (
-                    <Radio value={option.value}>{option.content}</Radio>
-                ))}
-            </RadioGroup>
+            <Fragment>
+                <RadioGroup
+                    id={id}
+                    value={attribute.value}
+                    onChange={this.onChange}
+                    hasError={!!attribute.validation}
+                >
+                    {options.map(option => <Radio value={option.value} label={option.ariaLabel?.value}>{option.content}</Radio>) as any}
+                </RadioGroup>
+                <Alert id={`${id}-error`} validation={attribute.validation} />
+            </Fragment>
         );
     }
 }
 
 export default hot(RadioContainer);
-
