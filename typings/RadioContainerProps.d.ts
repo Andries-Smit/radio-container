@@ -15,6 +15,8 @@ interface CommonProps {
     tabIndex: number;
 }
 
+export type OrientationEnum = "horizontal" | "vertical";
+
 export interface OptionsType {
     value: string;
     content: ReactNode;
@@ -34,8 +36,9 @@ export interface OptionsVisibilityType {
 }
 
 export interface RadioContainerContainerProps extends CommonProps {
-    options: OptionsType[];
+    orientation: OrientationEnum;
     attribute: EditableValue<string>;
+    options: OptionsType[];
     onChangeAction?: ActionValue;
 }
 
@@ -43,13 +46,15 @@ export interface RadioContainerPreviewProps {
     class: string;
     style: string;
     styleObject: CSSProperties;
-    options: OptionsPreviewType[];
+    orientation: OrientationEnum;
     attribute: string;
+    options: OptionsPreviewType[];
     onChangeAction?: ActionPreview;
 }
 
 export interface VisibilityMap {
-    options: OptionsVisibilityType[] | boolean;
+    orientation: boolean;
     attribute: boolean;
+    options: OptionsVisibilityType[] | boolean;
     onChangeAction: boolean;
 }

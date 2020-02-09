@@ -10,7 +10,8 @@ import {
     useMemo,
     createContext,
     FocusEvent,
-    ComponentType
+    ComponentType,
+    CSSProperties
 } from "react";
 
 import { getValidationAriaProps } from "../helpers/aria-props";
@@ -38,12 +39,17 @@ export interface RadioProps<V> {
     value: V;
     label?: string;
     children: any;
+    tabIndex: number;
+    firstItem: boolean;
+    disabled: boolean;
     onFocus?: (e: FocusEvent<any>) => void;
     onBlur?: (e: any) => void;
 }
 
 export interface RadioGroupProps<V> {
     id: string;
+    className?: string;
+    style?: CSSProperties;
     hasError: boolean;
     children: ComponentType<RadioProps<V>>[];
     value: V;
@@ -68,7 +74,14 @@ export function RadioGroup<V>({ id, hasError, children, value, ...props }: Radio
     );
     return (
         <RadioGroupContext.Provider value={ctx}>
-            <div role="radiogroup" id={id} data-mendix-radio-group {...getValidationAriaProps(hasError, id)}>
+            <div
+                role="radiogroup"
+                className={props.className}
+                style={props.style}
+                id={id}
+                data-mendix-radio-group
+                {...getValidationAriaProps(hasError, id)}
+            >
                 {children}
             </div>
         </RadioGroupContext.Provider>
@@ -143,28 +156,45 @@ export const Radio = forwardRef<HTMLDivElement | null, RadioProps<any>>(
         );
 
         const handleClick = useCallback(() => {
+            if (props.disabled) {
+                return;
+            }
             setChecked(props.value);
-        }, [props.value]);
+        }, [props.value, props.disabled]);
 
-        const handleBlur = useCallback(e => {
-            if (props.onBlur) {
-                props.onBlur(e);
-            }
-            setFocus(false);
-        }, []);
+        const handleBlur = useCallback(
+            e => {
+                if (props.disabled) {
+                    return;
+                }
+                if (props.onBlur) {
+                    props.onBlur(e);
+                }
+                setFocus(false);
+            },
+            [props.disabled]
+        );
 
-        const handleFocus = useCallback(e => {
-            if (props.onFocus) {
-                props.onFocus(e);
-            }
-            setFocus(true);
-        }, []);
+        const handleFocus = useCallback(
+            e => {
+                if (props.disabled) {
+                    return;
+                }
+                if (props.onFocus) {
+                    props.onFocus(e);
+                }
+                setFocus(true);
+            },
+            [props.disabled]
+        );
+        const tabIndex = (value === props.value || (value === undefined && props.firstItem)) && !props.disabled ? props.tabIndex || 0 : -1;
         return (
             <div
                 {...props}
                 role="radio"
-                tabIndex={value === props.value ? 0 : -1}
+                tabIndex={tabIndex}
                 aria-checked={value === props.value}
+                aria-disabled={props.disabled}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 onClick={handleClick}
@@ -178,8 +208,14 @@ export const Radio = forwardRef<HTMLDivElement | null, RadioProps<any>>(
                     }
                     ref.current = el;
                 }}
-                children={children}
-            />
+            >
+                <div data-radio-input
+                data-mendix-radio-focus={focus}
+                aria-checked={value === props.value}
+                aria-disabled={props.disabled}
+                />
+                {children}
+            </div>
         );
     }
 );

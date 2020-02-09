@@ -1,0 +1,208 @@
+@import "variables";
+
+// [data-mendix-radio-group] {
+//     padding: 0;
+//     margin: 0;
+//     list-style: none;
+// }
+
+// [data-mendix-radio-group]:focus {
+//     outline: none;
+// }
+
+// [data-mendix-radio] {
+//     border: 2px solid transparent;
+//     border-radius: 5px;
+//     display: inline-block;
+//     position: relative;
+//     padding: 0.125em;
+//     padding-left: 1.5em;
+//     padding-right: 0.5em;
+//     cursor: default;
+//     outline: none;
+// }
+
+// [data-mendix-radio] + [data-mendix-radio] {
+//     margin-left: 1em;
+// }
+
+// [data-mendix-radio]::before,
+// [data-mendix-radio]::after {
+//     position: absolute;
+//     top: 50%;
+//     left: 7px;
+//     transform: translate(-20%, -50%);
+//     content: "";
+// }
+
+// [data-mendix-radio]::before {
+//     width: 14px;
+//     height: 14px;
+//     border: 1px solid hsl(0, 0%, 66%);
+//     border-radius: 100%;
+//     background-image: linear-gradient(to bottom, hsl(300, 3%, 93%), #fff 60%);
+// }
+
+// [data-mendix-radio]:active::before {
+//     background-image: linear-gradient(to bottom, hsl(300, 3%, 73%), hsl(300, 3%, 93%));
+// }
+
+// [data-mendix-radio][aria-checked="true"]::before {
+//     border-color: hsl(216, 80%, 50%);
+//     background: hsl(217, 95%, 68%);
+//     background-image: linear-gradient(to bottom, hsl(217, 95%, 68%), hsl(216, 80%, 57%));
+// }
+
+// [data-mendix-radio][aria-checked="true"]::after {
+//     display: block;
+//     border: 0.1875em solid #fff;
+//     border-radius: 100%;
+//     transform: translate(25%, -50%);
+// }
+
+// [data-mendix-radio][aria-checked="true"]:active::before {
+//     background-image: linear-gradient(to bottom, hsl(216, 80%, 57%), hsl(217, 95%, 68%) 60%);
+// }
+
+// [data-mendix-radio][aria-disabled="true"]:hover::before {
+//     border-color: hsl(216, 94%, 65%);
+// }
+
+// [data-mendix-radio][data-mendix-radio-focus="true"] {
+//     border-color: hsl(216, 94%, 73%);
+//     background-color: hsl(216, 80%, 97%);
+// }
+
+// [data-mendix-radio][aria-disabled="false"]:hover {
+//     background-color: hsl(216, 80%, 92%);
+// }
+
+// [data-mendix-radio][aria-checked="true"][aria-disabled="true"]::before {
+//     background: hsl(217, 6%, 75%);
+// }
+
+[data-radio-input][aria-disabled="true"]::before,
+[data-mendix-radio][aria-disabled="true"] {
+    cursor: not-allowed;
+}
+
+[data-mendix-radio-group].inline {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    [data-mendix-radio] {
+        margin: 0 20px 0 0;
+    }
+}
+
+[data-mendix-radio-group] [data-mendix-radio]:last-child {
+    margin-bottom: 0;
+}
+
+[data-mendix-radio] {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    padding-top: 7px;
+    cursor: pointer;
+}
+
+[data-radio-input][data-mendix-radio-focus="true"] {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+[data-radio-input] {
+    position: relative !important; // Remove after mxui merge
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    margin-right: 8px;
+    cursor: pointer;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    &::-ms-check {
+        color: $form-input-border-color;
+        border-color: $form-input-border-color;
+        background-color: $form-input-bg;
+    }
+
+    &[data-mendix-radio-focus="true"]::-ms-check,
+    &[aria-checked="true"]::-ms-check {
+        color: $form-input-border-focus-color;
+        border-color: $form-input-border-focus-color;
+        background-color: $form-input-bg-focus;
+    }
+
+    &:before,
+    &:after {
+        position: absolute;
+        display: block;
+        transition: all 0.3s ease-in-out;
+        border-radius: 50%;
+    }
+
+    &:before {
+        width: 100%;
+        height: 100%;
+        content: '';
+        border: 1px solid $form-input-border-color;
+        background-color: transparent;
+    }
+
+    &:after {
+        top: 50%;
+        left: 50%;
+        width: 50%;
+        height: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        background-color: $form-input-border-focus-color;
+    }
+
+    &:not([aria-checked="true"]):after {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+
+    &:not([aria-disabled="true"]):not([aria-checked="true"] ):hover:after {
+        background-color: $form-input-bg-hover;
+    }
+
+    &[aria-checked="true"]:after,
+    &:not([aria-disabled="true"]):not([aria-checked="true"]):hover:after {
+        content: '';
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    &[aria-checked="true"]:before {
+        border-color: $form-input-border-focus-color;
+        background-color: $form-input-bg;
+    }
+
+    &[aria-disabled="true"]:before {
+        background-color: $form-input-bg-disabled;
+    }
+
+    &[aria-checked="true"][aria-disabled="true"]:before {
+        border-color: rgba($form-input-border-focus-color, 0.4);
+    }
+
+    &[aria-checked="true"][aria-disabled="true"]:after {
+        background-color: rgba($form-input-border-focus-color, 0.4);
+    }
+
+    & + .label {
+        margin-left: $form-label-gutter;
+    }
+}
